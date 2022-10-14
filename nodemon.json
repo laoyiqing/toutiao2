@@ -1,0 +1,8 @@
+
+
+{
+    "ignore": ["node_modules", "dist"],
+    "exec": "vue-cli-service serve",
+    "watch": ["proxy.js"]
+  }
+  
