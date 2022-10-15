@@ -15,14 +15,14 @@
             <!-- 右侧是当前用户 -->
             <div class="chat-item right" v-else>
                 <div class="chat-pao">{{item.msg}}</div>
-                <van-image fit="cover" round src="https://img.yzcdn.cn/vant/cat.jpeg" />
+                <van-image fit="cover" round :src="myImgUrl.photo" />
             </div>
             </div>
         </div>
 
       <!-- 对话区域 -->
       <div class="reply-container van-hairline--top">
-        <van-field v-model.trim="word" placeholder="说点什么...">
+        <van-field @click=" pictureShow()" v-model.trim="word" placeholder="说点什么...">
           <template #button>
             <span @click="send()" style="font-size:12px;color:#999">提交</span>
           </template>
@@ -35,6 +35,7 @@
 import { mapGetters } from 'vuex'
 // 按需导入 io 方法：调用 io('url') 方法，即可创建 websocket 连接的实例
 import { io } from 'socket.io-client'
+import { getUserInfo } from '@/api/user.js'
 let socket = null
 export default {
   name: 'ChatThink',
@@ -43,7 +44,9 @@ export default {
       // 用户输入的聊天内容
       word: '',
       // 所有的聊天消息
-      list: []
+      list: [],
+      // 用户头像
+      myImgUrl: {}
 
     }
   },
@@ -97,6 +100,11 @@ export default {
         // 定义垂直方向的对齐（end 表示元素的底端将和其所在滚动区的可视区域的底端对齐）
         block: 'end'
       })
+    },
+    // 获取用户头像
+    async pictureShow () {
+      const { data } = await getUserInfo()
+      this.myImgUrl = data.data
     }
   },
   // 组件被销毁之前，清空 sock 对象
@@ -172,6 +180,7 @@ export default {
   }
   .chat-item.left {
     text-align: left;
+    margin-top:60px ;
     .chat-pao {
       margin-left: 15px;
       margin-right: 0;
@@ -184,7 +193,7 @@ export default {
   .reply-container {
     position: fixed;
     left: 0;
-    bottom: 0;
+    bottom: 60px;
     height: 44px;
     width: 100%;
     background: #f5f5f5;

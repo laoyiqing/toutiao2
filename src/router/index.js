@@ -70,7 +70,7 @@ const router = new VueRouter({
 })
 
 // 所有有权限页面的路径，都在这个数组之中
-const pagePathArr = ['/home', '/user/edit']
+const pagePathArr = ['/home', '/video', '/my', '/qa']
 
 // 为路由的实例对象挂载全局前置守卫
 router.beforeEach((to, from, next) => {
