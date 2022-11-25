@@ -18,7 +18,7 @@ module.exports = {
         return file.indexOf('vant') !== -1 ? 37.5 : 75
       },
       // rootValue: 75,
-      // *表示所有
+      // * 表示所有
       // 表示所有属性都得转
       propList: ['*'],
 
